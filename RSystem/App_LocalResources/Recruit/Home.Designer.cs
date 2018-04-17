@@ -88,6 +88,15 @@ namespace RSystem.App_LocalResources.Recruit {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Formularz zmiany danych.
+        /// </summary>
+        public static string Form {
+            get {
+                return ResourceManager.GetString("Form", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Witaj.
         /// </summary>
         public static string Hello {
@@ -106,7 +115,7 @@ namespace RSystem.App_LocalResources.Recruit {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to W przypadku, gdy rejestracja została już zakończona, a w Twoich danych jest błąd, pobierz, wypełnij i dostarcz do Komisji Rekrutacynej.
         /// </summary>
         public static string Hint2 {
             get {

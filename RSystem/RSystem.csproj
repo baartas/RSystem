@@ -222,6 +222,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Layout.en.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_LocalResources\Recruit\Data\Data.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Data.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_LocalResources\Recruit\Data\Data.en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Data.en.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_LocalResources\Recruit\Home.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -442,6 +452,14 @@
     <EmbeddedResource Include="App_LocalResources\Layout\Layout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Layout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_LocalResources\Recruit\Data\Data.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Data.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_LocalResources\Recruit\Data\Data.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Data.en.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="App_LocalResources\Recruit\Home.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

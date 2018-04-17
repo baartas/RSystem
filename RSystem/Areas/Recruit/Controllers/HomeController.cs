@@ -88,8 +88,7 @@ namespace RSystem.Areas.Recruit.Controllers
 
             return View(preferences);
         }
-
-        //Remove Preference by id
+      
         //POST:Recruit/Home/Preferences
         [HttpPost]
         [ValidateAntiForgeryToken]

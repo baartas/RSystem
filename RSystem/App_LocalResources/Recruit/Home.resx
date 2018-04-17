@@ -126,6 +126,9 @@
   <data name="Education" xml:space="preserve">
     <value>Edukacja</value>
   </data>
+  <data name="Form" xml:space="preserve">
+    <value>Formularz zmiany danych</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Witaj</value>
   </data>
@@ -133,7 +136,7 @@
     <value>Skorzystaj z menu, aby przejść kolejno do wymaganych sekcji formularza. Po wypełnieniu każdej z nich, będziesz wracał na tę stronę, a wypełnione przez Ciebie sekcje oznaczymy kolorem zielonym. Sekcje, które wymagają Twojej uwagi oznaczyliśmy kolorem białem.</value>
   </data>
   <data name="Hint2" xml:space="preserve">
-    <value />
+    <value>W przypadku, gdy rejestracja została już zakończona, a w Twoich danych jest błąd, pobierz, wypełnij i dostarcz do Komisji Rekrutacynej</value>
   </data>
   <data name="Photo" xml:space="preserve">
     <value>Zdjęcie</value>

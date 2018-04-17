@@ -126,14 +126,17 @@
   <data name="Education" xml:space="preserve">
     <value>Education</value>
   </data>
+  <data name="Form" xml:space="preserve">
+    <value>data change from</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Hello</value>
   </data>
   <data name="Hint" xml:space="preserve">
-    <value>Use this menu to fill required data. Will be added.....</value>
+    <value>Use this menu to fill required data. After filling each section You will be back here. We marked properly filled sections by green colour. Sections that requires your attention have been marked by white colour.</value>
   </data>
   <data name="Hint2" xml:space="preserve">
-    <value />
+    <value>In case the registration is already completed and you find out you have given us wrong data download, fill in and deliver to the Recruitment Committee</value>
   </data>
   <data name="Photo" xml:space="preserve">
     <value>Photo</value>
