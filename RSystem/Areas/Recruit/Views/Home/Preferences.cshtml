@@ -1,0 +1,120 @@
+﻿@using RSystem.Models
+@model IEnumerable<RSystem.Models.RecruitPreference>
+@{
+    ViewBag.Title = "Twoje kierunki";
+}
+
+<div class="add-field text-center my-20">
+    @Html.ActionLink("Dodaj kierunek","AddPreference","Home",new{area="Recruit"},new {@class="add-button"})
+</div>
+<p class="pref-info">
+    Wybrane kierunki
+</p>
+<div class="table-responsive">
+    <table class="main-table table table-striped mb-60">
+        <tr>
+            <th>Kierunek/Specialność</th>
+            <th>Termin zakończenia</th>
+            <th>Opłata rekrutacyjna</th>
+            <th>Czy opłacony</th>
+            <th>Operacje</th>
+            <th>Punkty</th>
+            <th>Status</th>
+        </tr>
+        @foreach (var p in Model)
+        {
+            <tr id="spec-id-@p.SpecializationId">
+                <td>
+                    <b>#@p.Priority @p.Specialization.Name (@p.Specialization.Faculty.Abbrevation)</b><br />
+                    <span>@p.Specialization.Description</span>
+                </td>
+                <td>@p.Specialization.Deadline.ToString("dd'.'MM'.'yyyy")</td>
+                <td>@p.Specialization.Price zl</td>
+                <td>@ConfirmationIcon(p.Paid) </td>
+
+                <td>
+
+                    @using (Html.BeginForm("Preferences", "Home", FormMethod.Post, new { @class = "js-delete" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("RecruitPreferenceId", p.RecruitPreferenceId)
+                        <button type="submit" class="color-rejected btn-remove">Usuń</button>
+
+                    }
+                </td>
+
+                <td>@p.Points</td>
+                <td class="@ClassForStatus(p.Status)">
+                    @ContentForStatus(p.Status)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@section DedicatedStyles
+{
+    <link rel="stylesheet" href="~/Content/css/HomePreferences.css" />
+}
+
+@section scripts
+{
+    <script>
+
+        $('.js-delete').submit(function(e) {
+            var currentForm = this;
+            e.preventDefault();
+            bootbox.confirm({
+                message: "Czy napewno chcesz usunąć ten kierunek?",
+                buttons: {
+                    confirm: {
+                        label: 'Usuń',
+                        className: 'btn-danger'
+                    },
+                    cancel: {
+                        label: 'Anuluj',
+                    }
+                },
+                callback: function(result) {
+                    if (result) {
+                        currentForm.submit();
+                    }
+                }
+            });
+        });
+
+</script>
+}
+
+@functions
+{
+    public string ClassForStatus(RecrutationStatus status)
+    {
+        if (status == RecrutationStatus.Accepted)
+            return "color-accepted";
+        else if (status == RecrutationStatus.Rejected)
+            return "color-rejected";
+        return "color-standby";
+    }
+
+    public string ContentForStatus(RecrutationStatus status)
+    {
+        if (status == RecrutationStatus.Accepted)
+            return "Przyjęty";
+        else if (status == RecrutationStatus.Rejected)
+            return "Odrzucony";
+        return "Oczekuje";
+    }
+}
+
+@helper  ConfirmationIcon(bool b){
+    if (b)
+    {
+        @:<div class="glyphicon glyphicon-ok"> </div>
+    }
+    else
+    {
+        @:<div class="glyphicon glyphicon-remove"> </div>
+    }
+}

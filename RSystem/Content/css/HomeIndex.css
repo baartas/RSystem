@@ -1,0 +1,95 @@
+﻿
+
+
+
+.warning-box {
+    padding: 14px;
+    background-color: #DA521F;
+    font-size: 17px;
+}
+
+.tile {
+    width: 24%;
+    height: 190px;
+    text-align: center;
+    line-height: 110px;
+    border: 1px solid rgb(0,44,105);
+    display: inline-block;
+    color: rgb(0,44,105);
+    padding: 5px;
+    transition: ease-in-out 0.3s;
+    font-weight: 500;
+    font-size: 17px;
+    margin-top: 10px;
+}
+.tile:hover {
+    cursor: pointer;
+    background-color: rgb(0,44,105);
+    border-color: rgb(0,44,105);
+    color: #fff;
+}
+
+
+.tile-done {
+    color: #ffffff;
+    background-color: #5CB85C;
+    border-color: #5CB85C;
+}
+
+
+
+.tile-incomplete {
+    color: #ffffff;
+    background-color: #D75726;
+    border-color: #CE643C;
+}
+
+
+
+#tiles-hint {
+    background-color: rgb(0,44,105);
+    color: #ffffff;
+    height: 190px;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 20px;
+    margin-top: 10px;
+
+}
+.icon {
+    display: block;
+    text-align: Center;
+    font-size: 20px;
+    border: solid 1px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin: 4px;
+}
+
+#remind-box {
+    font-size: 16px;
+}
+
+.highlight {
+    color: #fff;
+    background-color: rgb(0,44,105);
+    padding: 1px 3px;
+    white-space: nowrap;
+}
+
+.highlight:hover {
+    background-color: #fff;
+    color:rgb(0,44,105);
+    border: 1px solid rgb(0,44,105);
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 540px) {
+    .tile {
+        width: 49%;
+        margin-top: 4px;
+        box-sizing: border-box;
+    }
+}

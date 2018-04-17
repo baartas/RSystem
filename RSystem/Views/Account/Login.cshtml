@@ -1,0 +1,79 @@
+﻿@using RSystem.App_LocalResources.Account
+@model Tuple<RSystem.Models.LoginViewModel,bool>
+
+@{
+    ViewBag.Title = Login.Title;
+}
+<div class="width-100">
+    <div class="triangle-top">
+
+    </div>
+    <div class="container py-20" style="text-align: center">
+        @{
+            if (!Model.Item2)
+            {
+                <h1 class="text-danger" id="LabelForInput">@Login.GivePESEL</h1>
+                using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-inline text-center py-20">
+                        <input type="text" name="PESEL" class="form-control" maxlength="11" id="user-input" placeholder="@Login.Here" />                       
+                        <input type="submit" class="btn" id="user-next-submit" value="@Login.Next"/>
+                    </div>
+                    @Html.ValidationMessage("PESEL", "", new {@class = "text-danger h3"})
+                    <span class="text-danger h3">@ViewBag.Message</span>
+                }
+            }
+            else
+            {
+                <h1 class="text-danger" id="LabelForInput">@Login.GivePassword @Model.Item1.PESEL</h1>
+                using (Html.BeginForm())
+                {
+                     @Html.AntiForgeryToken()
+                     <div class="form-inline text-center py-20">
+                         @Html.Hidden("PESEL",Model.Item1.PESEL)
+                         <input type="password" name="Password" class="form-control" id="user-input" placeholder="@Login.Here" />
+                         <input type="submit" class="btn" id="user-next-submit" value="@Login.SignIn" />
+                     </div>
+            
+                }
+            }
+        }
+        
+    </div>
+    <div class="triangle-bottom">
+
+    </div>
+    <div id="help-div" class="white">
+        <div class="container">
+            <div class="text-center">
+                <span class="h2 font-2" style="font-weight:300">@Login.NeedHelp</span>
+            </div>
+            <p>
+                @Login.Warning @Login.Regulations <br />
+                @Login.Help
+            </p>
+        </div>
+    </div>
+    <div class="triangle-bottom triangle-bottom-reversed">
+
+    </div>
+    <div class="container text-center" id="more-info">
+        <div class="text-center">
+            <span class="h1 font-2" style="font-weight:300">@Login.WantMore</span>
+            <p>
+                <a href="https://rekrutacja.amu.edu.pl/" target="_blank">@Login.VisitRecrutationSite</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+@section DedicatedStyles
+{
+    <link rel="stylesheet" href="~/Content/css/LoginForms.css" />
+}
+
+@section dedicatedscripts
+{
+    <script type="text/javascript" src="@Url.Content("/Scripts/DedicatedScripts/ChangeFontWeightOnTextChange.js")"></script>
+}

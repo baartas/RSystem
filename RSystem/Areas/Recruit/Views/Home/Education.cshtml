@@ -1,0 +1,136 @@
+﻿@using RSystem.Models
+@model RSystem.ViewModels.EducationViewModel
+@{
+    ViewBag.Title = "Edukacja";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-6">
+            <section class="section-subject">
+                <header>Świadectwo dojrzałości</header>
+                <div class="section-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.MaturaNumber, new { @class = "label-form required" })
+                                @Html.EditorFor(m => m.MaturaNumber, new { htmlAttributes = new { @class = "form-control no-radius", placeholder= "CCI123456" } })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.DateOfPass, new { @class = "label-form required" })
+                                @Html.EditorFor(m => m.DateOfPass, new { htmlAttributes = new { @class = "form-control no-radius" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-6">
+            <section class="section-subject">
+                <header>Rodzaj zdawanej matury</header>
+                <div class="section-body-2">
+                    <div class="form-group">
+                        <div class="radio">
+                            <label class="spec-ratio">@Html.RadioButtonFor(m => m.MaturaType, MaturaType.Nowa,new {id="new-matura-ratio"}) Nowa</label>
+                        </div>
+                        <div class="radio">
+                            <label class="spec-ratio">@Html.RadioButtonFor(m => m.MaturaType, MaturaType.Stara,new {id="old-matura-ratio"}) Stara</label>
+                        </div>
+                        <div class="radio">
+                            <label class="spec-ratio">@Html.RadioButtonFor(m => m.MaturaType, MaturaType.Międzynarodowa,new { id = "international-matura-ratio"}) Międzynarodowa</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <span class="h1 orange p-20" >Wyniki z matury</span>
+        <hr/>
+    </div>
+    
+    
+    
+    for (int i = 0; i < Model.MaturaResults.Count(); i++)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-6 subject-field d-none @MaturaTypeClass(Model.MaturaResults[i].MaturaSubject.MaturaType)">
+
+            <section class="section-subject">
+                
+                <header>
+                    @Model.MaturaResults[i].MaturaSubject.Name
+                </header>
+                <div class="section-body">
+                    @Html.HiddenFor(m=>m.MaturaResults[i].MaturaResultId)
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.MaturaResults[i].Points, new {@style = "font-weight:500"})
+                        @Html.EditorFor(m => m.MaturaResults[i].Points, new {htmlAttributes = new {@class = "form-control no-radius"}})
+                    </div>
+                    <p>@Model.MaturaResults[i].MaturaSubject.Description</p>
+                </div>
+
+            </section>
+        </div>
+    }
+    <div class="row col-sm-12 text-center p-submit">
+        <input type="submit" class="submit-blue form-btn" value="Zapisz"/>
+        @Html.ActionLink("Anuluj","Index","Home",new {@class="form-cancel form-btn"})
+    </div>
+}
+@section DedicatedStyles
+{
+    <link rel="stylesheet" href="~/Content/css/HomeEducation.css" />
+}
+
+@functions
+{
+
+    string MaturaTypeClass(MaturaType type)
+    {
+        if (type == MaturaType.Nowa)
+            return "new-matura";
+        else if (type == MaturaType.Stara)
+            return "old-matura";
+        return "internationtal-matura";
+    }
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            if ($("#new-matura-ratio").prop("checked")) {
+                $(".new-matura").removeClass("d-none");
+            } else if ($("#old-matura-ratio").prop("checked")) {
+                $(".old-matura").removeClass("d-none");
+            } else {
+                $(".international-matura").removeClass("d-none");
+            }
+        });
+
+        $(document).ready(function () {
+            $('.required').prepend('<span class="glyphicon glyphicon-asterisk"></span>');
+        });
+
+        $("input[name *= 'MaturaType']").on('change',
+            function () {
+                $(".subject-field").addClass("d-none");
+
+                if ($("#new-matura-ratio").prop("checked")) {
+                    $(".new-matura").removeClass("d-none");
+                } else if ($("#old-matura-ratio").prop("checked")) {
+                    $(".old-matura").removeClass("d-none");
+                } else {
+                    $(".international-matura").removeClass("d-none");
+                }
+            });
+
+
+    </script>
+
+}

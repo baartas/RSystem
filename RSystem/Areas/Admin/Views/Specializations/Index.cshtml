@@ -1,0 +1,97 @@
+﻿@model Dictionary<RSystem.Models.Faculty, IEnumerable<RSystem.Models.Specialization>>
+
+@{
+    ViewBag.Title = "Lista kierunków";
+}
+
+<div class="add-field text-center my-20">
+    @Html.ActionLink("Dodaj kierunek", "Create", "Specializations", null, new { @class = "add-button" })
+</div>
+@foreach (var faculty in Model)
+{
+    <section class="faculty ">
+        <header>
+            @faculty.Key.Name
+        </header>
+        <div class="table-responsive">
+            <table class="main-table table table-striped">
+                <tr>
+                    <th>Kierunek/Specialność</th>
+                    <th>Termin zakończenia</th>
+                    <th>Opłata rekrutacyjna</th>
+                    <th>Operacje</th>
+                    <th>Próg punktowy</th>
+                </tr>
+                @foreach (var specialization in faculty.Value)
+                {
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("Create","Specializations",new{id=specialization.SpecializationId})">
+                                <b>
+                                    @specialization.Name (@specialization.Faculty.Abbrevation)
+                                </b>
+                            </a>
+                            <br />
+                            <span>@specialization.Description</span>
+                        </td>
+                        <td>
+                            @specialization.Deadline.ToString("dd'.'MM'.'yyyy")
+                        </td>
+                        <td>
+                            @specialization.Price zl
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("Delete", "Specializations", FormMethod.Post, new { @class = "js-delete" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", specialization.SpecializationId)
+                                <button type="submit" class=" color-rejected btn-remove">Usuń</button>
+                            }
+
+                        </td>
+
+                        <td>0</td>
+
+                    </tr>
+                }
+
+            </table>
+        </div>
+</section>
+}
+
+
+@section DedicatedStyles
+{
+    <link rel="stylesheet" href="/Content/css/SpecializationIndex.css"/>
+}
+
+@section scripts
+{
+    <script>
+
+        $('.js-delete').submit(function(e) {
+            var currentForm = this;
+            e.preventDefault();
+            bootbox.confirm({
+                message: "Czy napewno chcesz usunąć ten kierunek?",
+                buttons: {
+                    confirm: {
+                        label: 'Usuń',
+                        className: 'btn-danger'
+                    },
+                    cancel: {
+                        label: 'Anuluj',
+                    }
+                },
+                callback: function(result) {
+                    if (result) {
+                        currentForm.submit();
+                    }
+                }
+            });
+        });
+
+    </script>
+
+}

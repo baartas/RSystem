@@ -1,0 +1,124 @@
+﻿@using RSystem.Models
+@model IEnumerable<RSystem.Models.Faculty>
+@{
+    ViewBag.Title = "Panel wydziałów";
+}
+
+<div class="add-field text-center my-20">
+    <button class="add-button" data-toggle="modal" data-target="#myModal" onclick="showModalForm('','','')">Dodaj wydział</button>
+</div>
+
+<div class="text-center text-danger fs-19">
+    @ViewBag.Validation
+</div>
+
+<section class="faculties">
+    <header>
+        Lista wydziałów
+    </header>
+    <div class="table-responsive">
+        <table class="main-table table table-striped">
+            <tr>
+                <th>Nazwa wydziału</th>
+                <th>Operacje</th>                   
+            </tr>
+            @foreach (var faculty in Model)
+            {
+                <tr>
+                    <td>
+                        <span class="faculty" onclick="showModalForm('@faculty.FacultyId','@faculty.Name','@faculty.Abbrevation')" data-toggle="modal" data-target="#myModal">
+                            <b>(@faculty.Abbrevation)</b> @faculty.Name
+                        </span>
+                    </td>                  
+                    <td>
+                        @using (Html.BeginForm("Delete", "Faculties", FormMethod.Post, new { @class = "js-delete" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("id", faculty.FacultyId)
+                            <button type="submit" class=" color-rejected btn-remove">Usuń</button>
+                        }
+                    </td>     
+                </tr>
+            }
+        </table>
+    </div>        
+</section>
+
+<!-- Modal-->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">    
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Dodaj/Edytuj wydział</h2>
+            </div>
+            @using (Html.BeginForm())
+            {
+                <div class="modal-body">
+                    <input type="hidden" name="FacultyId" id="faculty-id"/>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="faculty-abbrevation">Skrót wydziału</label>
+                                <input type="text" name="Abbrevation" id="faculty-abbrevation" class="form-control" placeholder="WMI"/>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="faculty-name">Nazwa Wydziału</label>
+                                <input type="text" name="name" id="faculty-name" class="form-control" placeholder="Wydział Matemtyki i Informatyki"/>
+                            </div>
+                        </div>
+                    </div>                                        
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Zapisz"/>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Anuluj</button>
+                </div>
+            }            
+        </div>      
+    </div>
+</div>
+
+@section DedicatedStyles
+{
+    <link rel="stylesheet" href="/Content/css/AdminFaculties.css" />
+}
+
+@section scripts
+{
+    <script>
+        
+        function showModalForm(id,name,abbrevation) {
+            $('#faculty-name').val(name);
+            $('#faculty-abbrevation').val(abbrevation);
+            $('#faculty-id').val(id);
+            console.log(id+" "+name + " " + abbrevation);
+        }
+
+        $('.js-delete').submit(function(e) {
+            var currentForm = this;
+            e.preventDefault();
+            bootbox.confirm({
+                message: "Czy napewno chcesz usunąć ten wydział i wszyskie kierunki które do niego należą?",
+                buttons: {
+                    confirm: {
+                        label: 'Usuń',
+                        className: 'btn-danger'
+                    },
+                    cancel: {
+                        label: 'Anuluj',
+                    }
+                },
+                callback: function(result) {
+                    if (result) {
+                        currentForm.submit();
+                    }
+                }
+            });
+        });
+
+    </script>
+
+}

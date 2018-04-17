@@ -1,0 +1,25 @@
+﻿img {
+    width: 310px;
+    height: auto;
+}
+#photo-div {
+    text-align: center;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.form-file {
+    background-color: #098520;
+    font-weight: 500 !important;
+}
+.form-file:hover {
+    background-color: #045D15;
+    cursor: pointer;
+}

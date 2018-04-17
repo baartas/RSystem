@@ -1,0 +1,97 @@
+﻿@using RSystem.Helpers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="~/uamico.ico" />
+    <title>@ViewBag.Title - @RSystem.App_LocalResources.Layout.Layout.Title</title>
+    @Styles.Render("~/Content/cssboundle")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:100,100i,300,400,700,900|Lato|Roboto:100,100i,300,400,700,900" rel="stylesheet">
+    @RenderSection("DedicatedStyles",false)
+</head>
+<body>
+<div id="wrapper">
+    <div class="container-fluid main-color-background">
+        <header>
+            <div class="container" id="header">                
+                <div class="col-sm-12">
+                    <div class="row" id="language-panel">
+                        <ul class="list-inline">
+                            @Url.LangSwitcher("PL", ViewContext.RouteData, "pl") @Url.LangSwitcher("EN", ViewContext.RouteData, "en")                       
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li>
+                                    @using (@Html.BeginForm("LogOff", "Account", new { area = "" }))
+                                    {
+                                        @Html.AntiForgeryToken();
+                                        <span id="log-out" class="glyphicon glyphicon-log-out"></span>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="row" id="header-row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="main-logo">
+                        <a href="@Url.Action("Index", "Home", new {area = ""})">
+                            <img src="@RSystem.App_LocalResources.Layout.Layout.LogoPath" class="img-responsive"/>
+                        </a>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 hidden-sm hidden-xs text-right header-text">
+                        <span class=" header-text">@RSystem.App_LocalResources.Layout.Layout.CandidatesPortal</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <main>
+        @{
+            if (ViewBag.HideMainHeader != null && ViewBag.HideMainHeader)
+            {
+                @RenderBody()
+            }
+            else
+            {
+                <div class="container py-20">
+                    <span class="h1 orange p-20">@ViewBag.Title</span>
+                    <hr />
+                    @RenderBody()
+                </div>
+            }
+        }
+    </main>
+
+    <footer>
+        <div class="container-fluid main-color-background" id="footer">
+            <div class="container">
+                <dl id="links">
+                    <dt><a href="@Url.Action("Login","Account",new {area=""})">@RSystem.App_LocalResources.Layout.Layout.Login</a> / <a href="@Url.Action("Register","Account",new{area=""})">@RSystem.App_LocalResources.Layout.Layout.Register</a></dt>
+                    <dt><a href="https://amu.edu.pl/" target="_blank">@RSystem.App_LocalResources.Layout.Layout.MainSiteUAM</a></dt>
+                    <dt><a href="https://rekrutacja.amu.edu.pl/" target="_blank">@RSystem.App_LocalResources.Layout.Layout.RecrutationUAM</a></dt>
+                    <dt><a href="https://amu.edu.pl/kontakt" target="_blank">@RSystem.App_LocalResources.Layout.Layout.ContactUAM</a></dt>
+                </dl>
+            </div>
+            <div class="text-center" id="copywright">
+                &copy; @DateTime.Now.Year @RSystem.App_LocalResources.Layout.Layout.UAM
+            </div>
+        </div>
+    </footer>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+@RenderSection("dedicatedscripts",required:false)
+
+<script>
+    $(document).ready(function() {
+        $('#log-out').on('click',function() {
+            $(this).closest('form').submit();
+        });
+    });
+</script>
+</body>
+</html>

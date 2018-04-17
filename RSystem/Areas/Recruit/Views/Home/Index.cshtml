@@ -1,0 +1,52 @@
+﻿@using RSystem.App_LocalResources.Recruit
+@model RSystem.ViewModels.HomeIndexViewModel
+@{
+    ViewBag.Title = Model.Greeting;
+}
+
+<div class="warning-box white">
+    @Home.Warning
+</div>
+
+<div class="row py-20">
+    <div class="col-md-7 px-25">
+        <a href="@Url.Action("Data","Home",new{area="Recruit"})">
+            <div class="tile @Model.DataStatus">
+                <span class="icon">1</span>
+                @Home.Data
+            </div>
+        </a>
+        <a href="@Url.Action("Photo","Home",new{area="Recruit"})">
+            <div class="tile @Model.PhotoStatus">
+                <span class="icon">2</span>
+                @Home.Photo
+            </div>
+        </a>
+        <a href="@Url.Action("Education","Home",new{area="Recruit"})">
+            <div class="tile @Model.EducationStatus">
+                <span class="icon">3</span>
+                @Home.Education
+            </div>
+        </a>
+        <a href="@Url.Action("Preferences","Home",new{area="Recruit"})">
+            <div class="tile @Model.PreferenceStatus">
+                <span class="icon">4</span>
+                @Home.Courses
+            </div>
+        </a>
+    </div>
+    <div class="col-md-5">
+        <p id="tiles-hint">
+            Skorzystaj z menu, aby przejść kolejno do wymaganych sekcji formularza. Po wypełnieniu każdej z nich, będziesz wracał na tę stronę, a wypełnione przez Ciebie sekcje oznaczymy kolorem zielonym. Sekcje, które wymagają Twojej uwagi oznaczyliśmy kolorem białem.
+        </p>
+    </div>
+</div>
+<p class="p-20" id="remind-box">
+    W przypadku, gdy rejestracja została już zakończona, a w Twoich danych jest błąd, pobierz, wypełnij i dostarcz do Komisji Rekrutacynej <a href="#" class="highlight">formularz zmiany danych</a>.
+</p>
+
+
+@section DedicatedStyles
+{
+    <link rel="stylesheet" href="~/Content/css/HomeIndex.css" />
+}

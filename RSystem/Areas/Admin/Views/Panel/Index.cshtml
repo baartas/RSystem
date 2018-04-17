@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Panel Admina";
+}
+
+<div class="row main-col">
+    <div class="col-md-4">
+        <a href="@Url.Action("Index","Specializations",new{area="Admin"})" class="admintile">
+            Panel kierunków
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a href="@Url.Action("Index","Faculties",new{area="Admin"})" class="admintile">
+            Panel wydziałów
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a href="@Url.Action("Index","Recrutation",new{area="Admin"})" class="admintile">
+            Panel rekrutacji
+        </a>
+    </div>
+</div>
+
+<style>
+    .admintile {
+        display: block;
+        line-height: 330px;
+        height: 330px;
+        font-size: 25px;
+        text-decoration: none;
+        vertical-align: central;
+        text-align: center;
+        color: #ddd;
+        background-color: rgba(0,44,105,0.9);
+        margin-top: 10px;
+        transition: ease-in-out 0.3s;
+    }
+
+    .admintile:hover {
+        color: #fff;
+        background-color: rgb(2, 39, 91);
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .main-col {
+        margin-top: 60px;
+        display: block;
+        margin-bottom: 60px;
+    }
+
+    @@media only screen and (max-width: 970px) {
+        .admintile {
+            height: 150px;
+            line-height: 150px;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+    }
+</style>
+
+

@@ -1,0 +1,360 @@
+﻿@using System.Web.Script.Serialization
+@using Microsoft.Ajax.Utilities
+@using RSystem.Models
+@model RSystem.Areas.Admin.Models.SpecializationCreateViewModel
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Specialization.SpecializationId);
+
+    <section class="section-subject">
+        <header>Podstawowe informacje</header>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Specialization.FacultyId, "Wydział", htmlAttributes: new { @class = "label-form required" })              
+                        @Html.DropDownListFor(model=>model.Specialization.FacultyId, Model.Faculties, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Specialization.FacultyId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Specialization.Name, new {@class = "label-form required"})
+                        @Html.EditorFor(m => m.Specialization.Name, new {htmlAttributes = new {@class = "form-control no-radius",placeholder="Informatyka"}})
+                        @Html.ValidationMessageFor(model => model.Specialization.Name, "", new {@class = "text-danger"})                       
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Specialization.Deadline, htmlAttributes: new {@class = "label-form required"})
+                        @Html.EditorFor(model => model.Specialization.Deadline, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Specialization.Deadline, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Specialization.Price, htmlAttributes: new { @class = "label-form required" })
+                        <div class="input-group ">
+                            @Html.EditorFor(model => model.Specialization.Price, new {htmlAttributes = new {@class = "form-control no-radius", placeholder = "35"}})                            
+                            <span class="input-group-addon">zł</span>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Specialization.Price, "", new { @class = "text-danger" })
+                    </div>                    
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Specialization.LimitOfPlaces, htmlAttributes: new { @class = "label-form required" })
+                    @Html.EditorFor(model => model.Specialization.LimitOfPlaces, new { htmlAttributes = new { @class = "form-control no-radius",placeholder="150"} }) 
+                </div>
+                <div class="col-md-10 mobile-mt-20">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Specialization.Description, htmlAttributes: new {@class = "label-form required"})
+                        @Html.EditorFor(model => model.Specialization.Description, new {htmlAttributes = new {@class = "form-control no-radius", placeholder = "3,5 roczne studnia stacjonarne"}})
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row">
+        <div class="col-md-4">
+            <section class="section-subject">
+                <header>Nowa Matura</header>
+                <div class="section-body">
+                    <div id="added-new-matura-subjects">
+                        @if (Model.PointsMultipilers != null)
+                        {
+                            for (int i = 0; i < Multipilers(MaturaType.Nowa).Count(); i++)
+                            {
+                                <div class="multipiler-section" id="js-delete-multipiler-@Multipilers(MaturaType.Nowa)[i].PointsMultipilerId">                                                         
+                                    <span class="multipiler">
+                                        @Multipilers(MaturaType.Nowa)[i].Multipiler
+                                    </span>
+                                    @Multipilers(MaturaType.Nowa)[i].MaturaSubject.Name
+                                    <span matura-multipiler-id="@Multipilers(MaturaType.Nowa)[i].PointsMultipilerId" class="glyphicon glyphicon-remove pull-right js-delete"></span>
+                                </div>
+                            }
+                        }
+                    </div>       
+                    <div id="js-to-add-new-matura">
+                        
+                    </div>
+                    <div class="text-center">
+                        <input type="button" matura-type="new" class="js-matura-btn submit-blue form-btn mt-20" value="Dodaj"/>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section class="section-subject">
+                <header>Stara Matura</header>
+                <div class="section-body">
+                    <div id="added-old-matura-subjects">
+                        @if (Model.PointsMultipilers != null)
+                        {
+                            for (int i = 0; i < Multipilers(MaturaType.Stara).Count(); i++)
+                            {
+                                <div class="multipiler-section" id="js-delete-multipiler-@Multipilers(MaturaType.Stara)[i].PointsMultipilerId">
+                                    <span class="multipiler">
+                                        @Multipilers(MaturaType.Stara)[i].Multipiler
+                                    </span>
+                                    @Multipilers(MaturaType.Stara)[i].MaturaSubject.Name
+                                    <span matura-multipiler-id="@Multipilers(MaturaType.Stara)[i].PointsMultipilerId" class="glyphicon glyphicon-remove pull-right js-delete"></span>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div id="js-to-add-old-matura">
+
+                    </div>
+                    <div class="text-center">
+                        <input type="button" matura-type="old" class="js-matura-btn submit-blue form-btn mt-20" value="Dodaj" />
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section class="section-subject">
+                <header>Matura Międzynarodowa</header>
+                <div class="section-body">
+                    <div id="added-international-matura-subjects">
+                        @if (Model.PointsMultipilers != null)
+                        {
+                            for (int i = 0; i < Multipilers(MaturaType.Międzynarodowa).Count(); i++)
+                            {
+                                <div class="multipiler-section" id="js-delete-multipiler-@Multipilers(MaturaType.Międzynarodowa)[i].PointsMultipilerId">
+                                    <span class="multipiler">
+                                        @Multipilers(MaturaType.Międzynarodowa)[i].Multipiler
+                                    </span>
+                                    @Multipilers(MaturaType.Międzynarodowa)[i].MaturaSubject.Name
+                                    <span matura-multipiler-id="@Multipilers(MaturaType.Międzynarodowa)s[i].PointsMultipilerId" class="glyphicon glyphicon-remove pull-right js-delete"></span>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div id="js-to-add-int-matura">
+
+                    </div>
+                    <div class="text-center">
+                        <input type="button" matura-type="int" class="js-matura-btn submit-blue form-btn mt-20" value="Dodaj" />
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Input contains JSON with multipilers data-->
+    <input type="hidden" id="MultipilersJSON" style="width: 100%;"name="MultipilersJSON"/>
+
+    <div class="row col-sm-12 text-center p-submit">
+        <input type="submit" class="submit-blue form-btn" value="Zapisz" />
+        @Html.ActionLink("Anuluj", "Index", "Home", new { @class = "form-cancel form-btn" })
+    </div>
+}
+
+@section Scripts{
+    <script>
+        var newMaturaSubjectsJSON = @Html.Raw(DropDownListOptions(MaturaType.Nowa));
+        var oldMaturaSubjectsJSON = @Html.Raw(DropDownListOptions(MaturaType.Stara));
+        var intMaturaSubjectsJSON = @Html.Raw(DropDownListOptions(MaturaType.Międzynarodowa));
+        var PointsMultipilerJSON = [];
+        var counterToAddId = -1;
+
+        $(document).ready(function() {
+            $('.js-matura-btn').on('click',
+                function() {
+                    var toAppendHandler = "";
+                    var type = $(this).attr('matura-type');
+                    switch (type) {
+                    case "new":
+                        toAppendHandler = "js-to-add-new-matura";
+                        break;
+                    case "old":
+                            toAppendHandler = "js-to-add-old-matura";
+                        break;
+                    case "int":
+                            toAppendHandler = "js-to-add-int-matura";
+                        break;
+                    }
+                    counterToAddId++;
+                    PointsMultipilerJSON.push({ id: counterToAddId, val: "", matura: "" });
+                    UpdateMultipilersJSON();
+                    $("#" + toAppendHandler).append('<div class="my-20" id="ToAddId' + counterToAddId+'">' +
+                        '<input id="MultipilerInputId'+counterToAddId+'" type="text" class="form-control matura-multipiler-input add-matura-input fs-19" onchange="TrackInputChanges(' + counterToAddId +')"/>' +
+                        FillDropDown(type) +
+                        '<span class="add-matura-input glyphicon glyphicon-remove pull-right" onclick="RemoveUnsaved(' + counterToAddId +')"></span>' +
+                        '</div>');
+                });
+        });
+
+        function FillDropDown(type) {
+            var content = '<select class="form-control add-matura-input matura-subjectid-input fs-15"' +
+                'name="add-new-matura-subjectid" id="DropDownInputId'+counterToAddId+'" onchange="TrackDropDownChanges('+counterToAddId+')">' +
+                FillDropDownOptions(type)+
+                '</select>';
+            return content;
+
+        }
+
+        function FillDropDownOptions(type) {
+            var json;
+            var toReturn = "";
+            if (type === "new")
+                json = newMaturaSubjectsJSON;
+            else if (type === "old")
+                json = oldMaturaSubjectsJSON;
+            else
+                json = intMaturaSubjectsJSON;
+
+            for (var i in json) {
+                toReturn+='<option value="'+json[i].id+'">'+json[i].name+'</option>';
+            }
+            return toReturn;
+
+        }
+
+        // Calling Api while removing saved MaturaSubject form multipilerList
+        $(document).ready(function() {
+            $('.js-delete').on('click',
+                function() {
+                    var id = $(this).attr('matura-multipiler-id');
+                    bootbox.confirm({
+                        message: "Czy napewno chcesz usunąć ten mnożnik?",
+                        buttons: {
+                            confirm: {
+                                label: 'Usuń',
+                                className: 'btn-danger'
+                            },
+                            cancel: {
+                                label: 'Anuluj'
+                            }
+                        },
+                        callback: function(result) {
+                            if (result) {
+                                $.ajax({
+                                    url: "/api/specializations/" + id,
+                                    method: "DELETE",
+                                    success: function () {
+                                        var elementId = "js-delete-multipiler-" + id;
+                                        $("#" + elementId).hide();
+                                    },
+                                    error: function () {
+                                        alert("Cos poszło nie tak, skontaktuj sie z administratorem");
+                                    }                                                                       
+                                });
+                            }
+                        }
+                    });
+                });
+        });
+
+        //Remove unsaved MaturaMultipiler
+        function RemoveUnsaved(n) {
+            bootbox.confirm({
+                message: "Czy napewno chcesz usunąć ten mnożnik?",
+                buttons: {
+                    confirm: {
+                        label: 'Usuń',
+                        className: 'btn-danger'
+                    },
+                    cancel: {
+                        label: 'Anuluj'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        $('#ToAddId' + n).hide();
+                        DeleteDataFromJSON(n);
+                    }
+
+                }
+
+            });
+        }
+
+        function FindIndexById(id) {
+            var index = -404;
+            for (var i = 0; i < PointsMultipilerJSON.length; i++) {
+                if (PointsMultipilerJSON[i].id === id)
+                    index = i;
+            }
+            return index;
+        }
+
+        function TrackInputChanges(id) {
+            var multipile = $('#MultipilerInputId' + id).val();
+            PointsMultipilerJSON[FindIndexById(id)].val = multipile;
+            UpdateMultipilersJSON();
+        }
+
+        function TrackDropDownChanges(id) {
+            var maturaid = $('#DropDownInputId' + id).val();
+            PointsMultipilerJSON[FindIndexById(id)].matura = maturaid;
+            UpdateMultipilersJSON();
+        }
+
+        function DeleteDataFromJSON(id) {
+            var index = FindIndexById(id);
+            
+            if (index !== -404)
+                PointsMultipilerJSON.splice(index, 1);
+            UpdateMultipilersJSON();
+        }
+
+        function UpdateMultipilersJSON() {
+
+            $("#MultipilersJSON").val(JSON.stringify(PointsMultipilerJSON));
+        }
+
+        $(document).ready(function () {
+            $('.required').prepend('<span class="glyphicon glyphicon-asterisk"></span>');
+        });
+
+    </script>
+}
+
+@section DedicatedStyles
+{
+    <link rel="stylesheet" href="/Content/css/HomeEducation.css"/>
+    <link rel="stylesheet" href="/Content/css/SpecializationCreate.css"/>
+
+}
+
+@functions
+{
+
+    string DropDownListOptions(MaturaType maturaType)
+    {
+        var serializer = new JavaScriptSerializer();
+
+        var availableSubjects = Model.MaturaSubjects.Where(mt => mt.MaturaType == maturaType);
+
+        var list=new List<dynamic>();
+
+        foreach (var subject in availableSubjects)
+        {
+            list.Add(new
+            {
+                id=subject.MaturaSubjectId,
+                name=subject.Name
+            });
+        }
+
+        return serializer.Serialize(list);
+    }
+
+    List<PointsMultipiler> Multipilers(MaturaType maturaType)
+    {
+        return Model.PointsMultipilers.Where(m => m.MaturaSubject.MaturaType == maturaType).ToList();
+    }
+
+    SelectList MaturaTypeSL(MaturaType type)
+    {
+        return new SelectList(Model.MaturaSubjects.Where(t=>t.MaturaType==type), "MaturaSubjectId","Name");
+    }
+
+}

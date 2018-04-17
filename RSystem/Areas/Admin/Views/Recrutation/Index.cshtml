@@ -1,0 +1,74 @@
+﻿@using System.Web.UI.HtmlControls
+@using System.Web.UI.WebControls
+@using RSystem.Models
+@model Dictionary<RSystem.Models.Faculty, IEnumerable<RSystem.Models.Specialization>>
+@{
+    ViewBag.Title = "Panel rekrutacyjny";
+}
+<div class="container py-20">
+    <span class="h1 orange p-20">@ViewBag.Title</span>    
+        @Html.ActionLink("Rozpocznij rekrutacje", "ChooseSpecialization", "Recrutation",new {area="Admin"}, new { @class = "recrutation-button pull-right" })   
+    <hr />
+    @foreach (var faculty in Model)
+    {
+        <section class="faculty ">
+            <header>
+                @faculty.Key.Name
+            </header>
+            <div class="table-responsive">
+                <table class="main-table table table-striped">
+                    <tr>
+                        <th>Kierunek/Specialność</th>
+                        <th>Termin zakończenia</th>
+                        <th>Liczba przyjętych</th>
+                        <th>Próg punktowy</th>
+                        <th>Lista przyjętych</th>
+                    </tr>
+                    @foreach (var specialization in faculty.Value)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Create","Specializations",new{area="Admin",id=specialization.SpecializationId})"
+                                   title="Edytuj kierunek">
+                                    <b>
+                                        @specialization.Name (@specialization.Faculty.Abbrevation)
+                                    </b>
+                                </a>
+                                <br />
+                                <span>@specialization.Description</span>
+                            </td>
+
+                            <td>
+                                @specialization.Deadline.ToString("dd-MM-yyyy")
+                            </td>
+
+                            <td>
+                                @getAmountOfAcceptedRecruit(@specialization)
+                            </td>
+
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                @Html.ActionLink("Zobacz listę", "StudentsList", new { specializationId = @specialization.SpecializationId })
+                            </td>
+
+                        </tr>
+                     }
+                </table>
+            </div>
+        </section>
+    }
+</div>
+    @section DedicatedStyles
+    {
+        <link rel="stylesheet" href="@Url.Content("/Areas/Admin/Content/Css/RecrutationIndex.css")" />
+    }
+
+    @functions
+    {
+        string getAmountOfAcceptedRecruit(Specialization specialization)
+        {
+            return (specialization.AcceptedRecruits?.Count() ?? 0).ToString() + "/" + specialization.LimitOfPlaces;
+        }
+    }

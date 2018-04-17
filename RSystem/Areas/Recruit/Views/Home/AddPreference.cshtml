@@ -1,0 +1,47 @@
+﻿@model Dictionary<RSystem.Models.Faculty, IEnumerable<RSystem.Models.Specialization>>
+@{
+    ViewBag.Title = "Wybierz kierunek";
+}
+
+<p class="pref-info">Lista dostępnych kierunków na rok @DateTime.Now.Year/@DateTime.Now.AddYears(1).Year </p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @foreach (var faculty in Model)
+        {
+            <section class="faculty">
+                <header>
+                    @faculty.Key.Name
+                </header>
+                @foreach (var specialization in faculty.Value)
+                {
+                    <div class="radio">
+                        <label class="spec-ratio">@Html.RadioButton("Id",specialization.SpecializationId) <b>@specialization.Name</b> (@specialization.Description)</label>
+                    </div>
+                }
+            </section>
+        }
+    </div>
+    <div class="row col-sm-12 text-center p-submit">
+        <input type="submit" class="submit-blue form-btn" value="Dodaj kierunek"/>
+        @Html.ActionLink("Anuluj","Preferences","Home",new {@class="form-cancel form-btn"})
+    </div>
+    
+}
+
+
+
+
+
+
+
+
+
+
+@section DedicatedStyles
+{
+    <link rel="stylesheet" href="~/Content/css/HomePreferences.css" />
+}
+

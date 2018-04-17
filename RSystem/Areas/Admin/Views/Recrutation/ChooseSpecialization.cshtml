@@ -1,0 +1,48 @@
+﻿@model Dictionary<RSystem.Models.Faculty, IEnumerable<RSystem.Models.Specialization>>
+@{
+    ViewBag.Title = "Wybierz kierunki do rekrutacji";
+}
+
+<p class="pref-info">Lista kierunków, na które rekrutacja już się zakończyła:</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @foreach (var faculty in Model)
+        {
+            <section class="faculty">
+                <header>
+                    @faculty.Key.Name
+                </header>
+                @foreach (var specialization in faculty.Value)
+                {
+                    <div class="radio">
+                        <label class="spec-ratio">@Html.CheckBox("listOfId" + getNextIndex(),new { value = specialization.SpecializationId }) <b>@specialization.Name</b> (@specialization.Description)</label>
+                    </div>
+                }
+            </section>
+        }
+    </div>
+    <div class="row col-sm-12 text-center p-submit">
+        <input type="submit" class="submit-blue form-btn" value="Rekrutuj" />
+        @Html.ActionLink("Anuluj", "Index", "Recruitation", new { @class = "form-cancel form-btn" })
+    </div>
+
+}
+
+@section DedicatedStyles
+{
+    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Content/Css/ChooseSpecialization.css")" />
+}
+
+@functions
+{
+    int currentId = -1;
+    string getNextIndex()
+    {
+        currentId++;
+        return "[" + currentId + "]";
+    }
+
+}

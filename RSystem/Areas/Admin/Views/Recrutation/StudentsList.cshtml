@@ -1,0 +1,46 @@
+﻿@using RSystem.Models
+@model List<KeyValuePair<RSystem.Models.Recruit,int>>
+@{
+    ViewBag.Title = "Lista przyjętych";
+}
+<div class="row">
+    <section class="students-list col-md-8 col-md-offset-2">
+        <header>
+            @ViewBag.SpecializationName
+        </header>
+        <div class="table-responsive">
+            <table class="main-table table table-striped">
+                <tr>
+                    <th class="position">Poz</th>
+                    <th class="firstname">Imię</th>
+                    <th class="lastname">Nazwisko</th>
+                    <th class="points">Punkty</th>
+                </tr>              
+                @for (int i=0;i<Model.Count;i++)
+                {
+                    <tr>
+                        <td>
+                            @{ var position = i + 1;}
+                            @position
+                        </td>
+                        <td>
+                            @Model[i].Key.RecriutData.FirstName @Model[i].Key.RecriutData.SecondName
+                        </td>
+                        <td>
+                            @Model[i].Key.RecriutData.LastName
+                        </td>
+                        <td>
+                            @Model[i].Value
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </section>
+</div>
+
+@section DedicatedStyles
+{
+    <link rel="stylesheet" href="@Url.Content("/Areas/Admin/Content/Css/StudentsList.css")" />
+}
+

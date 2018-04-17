@@ -1,0 +1,53 @@
+﻿
+.multipiler {
+    font-size: 20px;
+    color: rgb(0,44,105);
+}
+
+.multipiler-section {
+    width: 100%;
+    margin-top: 12px;
+}
+
+.glyphicon-remove {
+    color: #ee2222;
+    font-size: 20px;
+}
+
+.glyphicon-ok {
+    color: #02B202;
+    font-size: 18px;
+}
+.glyphicon-ok:hover {
+    cursor: pointer;
+} 
+
+.glyphicon-remove:hover {
+    cursor: pointer;
+}
+
+.add-matura-input {
+    display: inline-block;
+    vertical-align: top;
+}
+.matura-multipiler-input {
+    width: 40px;
+    padding: 0;
+    margin-left: -8px;
+    text-align: center;
+}
+
+.matura-subjectid-input {
+    width: 75%;
+    margin-left: 6px;
+}
+
+.add-subject-field {
+    padding-right: 20px;
+}
+
+@media screen and (max-width:992px) {
+    .mobile-mt-20 {       
+        margin-top: 20px;
+    }
+}

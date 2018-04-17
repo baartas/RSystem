@@ -1,0 +1,35 @@
+﻿#main-container {
+    font-size: 16px;
+    color: #141414;
+}
+
+.label-form {
+    font-weight: 500;
+    
+}
+.form-section {
+    border: 1px solid #eee;    
+}
+
+.form-section > header {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: rgb(0,44,105);
+    font-size: 16px;
+    color: #fff;
+}
+
+.form-control {
+    border-radius: 0;
+    border-color: rgb(0,44,105);
+}
+
+.label-ratio {
+    font-size: 16px;
+    color: #141414;
+    font-weight: 400;
+}
+.label-ratio:hover {
+    cursor: pointer;
+}
+

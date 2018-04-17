@@ -1,0 +1,264 @@
+﻿
+@using RSystem.Models
+@model RSystem.ViewModels.RecruitDataViewModel
+@{
+    ViewBag.Title = "Dane Osobowe";
+}
+
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(m=>m.RecruitDataId)
+        @Html.AntiForgeryToken()
+
+        <div class="row py-20 ">
+            <div class="col-md-6 col-lg-4">
+                <section class="form-section">
+                    <header>Dane Osobowe</header>
+                    <div class="p-20">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FirstName ,new { @class = "label-form required" })
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SecondName, new { @class = "label-form" })
+                            @Html.EditorFor(model => model.SecondName, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LastName, new { @class = "label-form required" })
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Sex, new { @class = "label-form required" })
+                            <div class="radio-switch">
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.Sex, Sex.Female) Kobieta</label>
+                            </div>
+                            <div class="radio-switch">
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.Sex, Sex.Male) Mężczyzna</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="form-section">
+                    <header>Rodzice</header>
+                    <div class="p-20">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FathersName, new { @class = "label-form required" })
+                            @Html.EditorFor(model => model.FathersName, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MothersName, new { @class = "label-form required" })
+                            @Html.EditorFor(model => model.MothersName, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </section>
+                <section class="form-section">
+                    <header>Data i miejsce urodzenia</header>
+                    <div class="p-20">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DayOfBirth, new { @class = "label-form required" })
+                            @Html.EditorFor(model => model.DayOfBirth, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BirthCity, new { @class = "label-form required" })
+                            @Html.EditorFor(model => model.BirthCity, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BirthCountry, new { @class = "label-form required" })
+                            @Html.DropDownListFor(model=>model.BirthCountry,Model.Countries ,new { @class = "form-control" } )
+
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <section class="form-section">
+                    <header>Tożsamość</header>
+                    <div class="p-20">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Citizenship, new { @class = "label-form required" })
+                            @Html.EditorFor(model => model.Citizenship, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DocumentType, new { @class = "label-form required" })
+                            <div class="radio-switch">
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.DocumentType, DocumentType.ID, new { id = "ID-Card" }) Dowód osobisty</label>
+                            </div>
+                            <div class="radio-switch">
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.DocumentType, DocumentType.Passport, new { id = "Passport" }) Paszport</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DocumentNumber,"Numer dowodu osobistego" ,new { @class = "label-form required", id="DocumentTypeId"})
+                            @Html.EditorFor(model => model.DocumentNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>                       
+                    </div>
+                </section>
+                <section class="form-section">
+                    <header>Niepełnosprawność</header>
+                    <div class="p-20">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IsDisabled, new { @class = "label-form required" })
+                            <div class="radio-switch">
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.IsDisabled,false) Nie</label>
+                            </div>
+                            <div class="radio-switch">
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.IsDisabled, true) Tak</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="form-section">
+                    <header>Dane kontaktowe</header>
+                    <div class="p-20">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, new { @class = "label-form required" })
+                            @Html.EditorFor(model=>model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Phone, new { @class = "label-form required" })
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <section class="form-section">
+                    <header>Adres zamieszkania</header>
+                    <div class="p-20">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Street, new { @class = "label-form required" })
+                            @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.House, new { @class = "label-form required" })
+                                @Html.EditorFor(model => model.House, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.Flat, new { @class = "label-form" })
+                                @Html.EditorFor(model => model.Flat, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.City, new { @class = "label-form required" })
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                        <div class="row">                            
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.PostalCode, new { @class = "label-form required" })
+                                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "__-___" } })
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.Country, new { @class = "label-form required" })
+                                @Html.DropDownListFor(model=>model.Country,Model.Countries ,new { @class = "form-control" } )
+      
+                            </div>
+                        </div>                                                
+                    </div>
+                </section>
+                <section class="form-section">
+                    <header>Adres do korespondencji</header>
+                    <div class="p-20">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CorespondentAdressSameAsResidence, new { @class = "label-form required" })
+                            <div class="radio-switch">
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.CorespondentAdressSameAsResidence, true, new { id = "SameAsResident" }) Tak</label>
+                            </div>
+                            <div class="radio-switch">
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.CorespondentAdressSameAsResidence, false, new { id = "NotSameAsResident" }) Nie</label>
+                            </div>
+                        </div>
+                        <div @if (Model.CorespondentAdressSameAsResidence)
+                             {
+                                 <text>class="hidden" </text>
+                             } id="corespondent-form">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CorespondentStreet, new {@class = "label-form required" })
+                                @Html.EditorFor(model => model.CorespondentStreet, new {htmlAttributes = new {@class = "form-control"}})
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    @Html.LabelFor(model => model.CorespondentHouse, new {@class = "label-form required" })
+                                    @Html.EditorFor(model => model.CorespondentHouse, new {htmlAttributes = new {@class = "form-control"}})
+                                </div>
+                                <div class="form-group col-md-6">
+                                    @Html.LabelFor(model => model.CorespondentFlat, new {@class = "label-form"})
+                                    @Html.EditorFor(model => model.CorespondentFlat, new {htmlAttributes = new {@class = "form-control"}})
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CorespondentCity, new {@class = "label-form required" })
+                                @Html.EditorFor(model => model.CorespondentCity, new {htmlAttributes = new {@class = "form-control"}})
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    @Html.LabelFor(model => model.CorespondentPostalCode, new {@class = "label-form required" })
+                                    @Html.EditorFor(model => model.CorespondentPostalCode, new {htmlAttributes = new {@class = "form-control", PlaceHolder = "__-___"}})
+                                </div>
+                                <div class="form-group col-md-6">
+                                    @Html.LabelFor(model => model.CorespondentCountry, new {@class = "label-form required" })
+                                    @Html.DropDownListFor(model=>model.CorespondentCountry,Model.Countries ,new { @class = "form-control" } )
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="form-section">
+                    <header>Wojsko</header>
+                    <div class="p-20">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MilitaryAttitude, new { @class = "label-form required" })
+                            @Html.EnumDropDownListFor(model => model.MilitaryAttitude, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </section>
+            </div>
+        <div class="row col-sm-12 text-center pt-20">
+            <input type="submit" class="submit-blue form-btn" value="Zapisz"/>
+            @Html.ActionLink("Anuluj","Index","Home",new {@class="form-cancel form-btn"})
+        </div>
+        </div>
+    }
+
+
+@section DedicatedStyles
+{
+    <link rel="stylesheet" href="~/Content/css/HomeData.css" />
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('.required').prepend('<span class="glyphicon glyphicon-asterisk"></span>');
+        });
+
+        $("#ID-Card").click(function () {
+            var handler = $("#DocumentTypeId");
+            handler.text('Numer dowodu osobistego');
+            handler.prepend('<span class="glyphicon glyphicon-asterisk"></span>');
+
+        });
+
+        $("#Passport").click(function () {
+            var hander=$("#DocumentTypeId");
+            hander.text('Numer paszportu');
+            hander.prepend('<span class="glyphicon glyphicon-asterisk"></span>');
+        });
+
+
+        $("#NotSameAsResident").click(function() {
+            $("#corespondent-form").removeClass('hidden');
+        });
+
+        $("#SameAsResident").click(function() {
+            $("#corespondent-form").addClass('hidden');
+        });
+    </script>
+}

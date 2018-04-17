@@ -1,0 +1,45 @@
+﻿@model string
+@{
+    ViewBag.Title = "Zdjęcie do legitymacji";
+}
+<div id="photo-div">
+    <img id="photo" src="@Url.Content(Model)" />
+</div>
+@using (Html.BeginForm("Photo", "Home", FormMethod.Post, 
+    new { enctype = "multipart/form-data" }))
+{    
+    @Html.AntiForgeryToken()
+    <div class="row col-sm-12 text-center p-submit mt-40">
+        <label for="photo-input" id="photo-label" class="form-btn form-file">@ViewBag.Photo</label>
+        <input type="file" name="photo" id="photo-input" class="inputfile"/>
+        <input type="submit" class="submit-blue form-btn" value="Zapisz"/>
+        @Html.ActionLink("Anuluj", "Index", "Home", new {@class = "form-cancel form-btn"})
+    </div>
+    
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#photo-input').on('change',function() {
+                readURL(this);
+                $('#photo-label').html('Zmień');
+            });
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#photo').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+</script>
+}
+
+@section DedicatedStyles
+{
+    <link rel="stylesheet" href="~/Content/css/HomePhoto.css"/>
+}
