@@ -1,8 +1,9 @@
 ﻿
 @using RSystem.Models
 @model RSystem.ViewModels.RecruitDataViewModel
+@using RSystem.App_LocalResources.Recruit.Data
 @{
-    ViewBag.Title = "Dane Osobowe";
+    ViewBag.Title = Data.PersonalData;
 }
 
     @using (Html.BeginForm())
@@ -12,7 +13,7 @@
         <div class="row py-20 ">
             <div class="col-md-6 col-lg-4">
                 <section class="form-section">
-                    <header>Dane Osobowe</header>
+                    <header>@Data.PersonalData</header>
                     <div class="p-20">
                         <div class="form-group">
                             @Html.LabelFor(model => model.FirstName ,new { @class = "label-form required" })
@@ -29,16 +30,16 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Sex, new { @class = "label-form required" })
                             <div class="radio-switch">
-                                <label class="label-ratio">@Html.RadioButtonFor(model => model.Sex, Sex.Female) Kobieta</label>
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.Sex, Sex.Female) @Data.Female</label>
                             </div>
                             <div class="radio-switch">
-                                <label class="label-ratio">@Html.RadioButtonFor(model => model.Sex, Sex.Male) Mężczyzna</label>
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.Sex, Sex.Male) @Data.Male</label>
                             </div>
                         </div>
                     </div>
                 </section>
                 <section class="form-section">
-                    <header>Rodzice</header>
+                    <header>@Data.Parents</header>
                     <div class="p-20">
                         <div class="form-group">
                             @Html.LabelFor(model => model.FathersName, new { @class = "label-form required" })
@@ -51,7 +52,7 @@
                     </div>
                 </section>
                 <section class="form-section">
-                    <header>Data i miejsce urodzenia</header>
+                    <header>@Data.DateAndPlaceOfBirth</header>
                     <div class="p-20">
                         <div class="form-group">
                             @Html.LabelFor(model => model.DayOfBirth, new { @class = "label-form required" })
@@ -64,7 +65,6 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.BirthCountry, new { @class = "label-form required" })
                             @Html.DropDownListFor(model=>model.BirthCountry,Model.Countries ,new { @class = "form-control" } )
-
                         </div>
                     </div>
                 </section>
@@ -73,7 +73,7 @@
 
             <div class="col-md-6 col-lg-4">
                 <section class="form-section">
-                    <header>Tożsamość</header>
+                    <header>@Data.Identity</header>
                     <div class="p-20">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Citizenship, new { @class = "label-form required" })
@@ -82,34 +82,34 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.DocumentType, new { @class = "label-form required" })
                             <div class="radio-switch">
-                                <label class="label-ratio">@Html.RadioButtonFor(model => model.DocumentType, DocumentType.ID, new { id = "ID-Card" }) Dowód osobisty</label>
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.DocumentType, DocumentType.ID, new { id = "ID-Card" }) @Data.IDCard</label>
                             </div>
                             <div class="radio-switch">
-                                <label class="label-ratio">@Html.RadioButtonFor(model => model.DocumentType, DocumentType.Passport, new { id = "Passport" }) Paszport</label>
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.DocumentType, DocumentType.Passport, new { id = "Passport" }) @Data.Passport</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DocumentNumber,"Numer dowodu osobistego" ,new { @class = "label-form required", id="DocumentTypeId"})
+                            @Html.LabelFor(model => model.DocumentNumber,Data.NumberOfIDCard ,new { @class = "label-form required", id="DocumentTypeId"})
                             @Html.EditorFor(model => model.DocumentNumber, new { htmlAttributes = new { @class = "form-control" } })
                         </div>                       
                     </div>
                 </section>
                 <section class="form-section">
-                    <header>Niepełnosprawność</header>
+                    <header>@Data.Disablility</header>
                     <div class="p-20">
                         <div class="form-group">
                             @Html.LabelFor(model => model.IsDisabled, new { @class = "label-form required" })
                             <div class="radio-switch">
-                                <label class="label-ratio">@Html.RadioButtonFor(model => model.IsDisabled,false) Nie</label>
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.IsDisabled,false) @Data.Yes</label>
                             </div>
                             <div class="radio-switch">
-                                <label class="label-ratio">@Html.RadioButtonFor(model => model.IsDisabled, true) Tak</label>
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.IsDisabled, true) @Data.No</label>
                             </div>
                         </div>
                     </div>
                 </section>
                 <section class="form-section">
-                    <header>Dane kontaktowe</header>
+                    <header>@Data.Contact</header>
                     <div class="p-20">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Email, new { @class = "label-form required" })
@@ -126,7 +126,7 @@
 
             <div class="col-md-6 col-lg-4">
                 <section class="form-section">
-                    <header>Adres zamieszkania</header>
+                    <header>@Data.Address</header>
                     <div class="p-20">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Street, new { @class = "label-form required" })
@@ -161,15 +161,15 @@
                     </div>
                 </section>
                 <section class="form-section">
-                    <header>Adres do korespondencji</header>
+                    <header>@Data.CorespondentAddress</header>
                     <div class="p-20">
                         <div class="form-group">
                             @Html.LabelFor(model => model.CorespondentAdressSameAsResidence, new { @class = "label-form required" })
                             <div class="radio-switch">
-                                <label class="label-ratio">@Html.RadioButtonFor(model => model.CorespondentAdressSameAsResidence, true, new { id = "SameAsResident" }) Tak</label>
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.CorespondentAdressSameAsResidence, true, new { id = "SameAsResident" }) @Data.Yes</label>
                             </div>
                             <div class="radio-switch">
-                                <label class="label-ratio">@Html.RadioButtonFor(model => model.CorespondentAdressSameAsResidence, false, new { id = "NotSameAsResident" }) Nie</label>
+                                <label class="label-ratio">@Html.RadioButtonFor(model => model.CorespondentAdressSameAsResidence, false, new { id = "NotSameAsResident" }) @Data.No</label>
                             </div>
                         </div>
                         <div @if (Model.CorespondentAdressSameAsResidence)
@@ -209,7 +209,7 @@
                     </div>
                 </section>
                 <section class="form-section">
-                    <header>Wojsko</header>
+                    <header>@Data.Military</header>
                     <div class="p-20">
                         <div class="form-group">
                             @Html.LabelFor(model => model.MilitaryAttitude, new { @class = "label-form required" })
@@ -219,8 +219,8 @@
                 </section>
             </div>
         <div class="row col-sm-12 text-center pt-20">
-            <input type="submit" class="submit-blue form-btn" value="Zapisz"/>
-            @Html.ActionLink("Anuluj","Index","Home",new {@class="form-cancel form-btn"})
+            <input type="submit" class="submit-blue form-btn" value="@Data.Save"/>
+            @Html.ActionLink(Data.Cancel,"Index","Home",new {@class="form-cancel form-btn"})
         </div>
         </div>
     }
@@ -240,14 +240,14 @@
 
         $("#ID-Card").click(function () {
             var handler = $("#DocumentTypeId");
-            handler.text('Numer dowodu osobistego');
+            handler.text('@Data.NumberOfIDCard');
             handler.prepend('<span class="glyphicon glyphicon-asterisk"></span>');
 
         });
 
         $("#Passport").click(function () {
             var hander=$("#DocumentTypeId");
-            hander.text('Numer paszportu');
+            hander.text('@Data.NumberOfPass');
             hander.prepend('<span class="glyphicon glyphicon-asterisk"></span>');
         });
 
